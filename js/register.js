@@ -1,9 +1,11 @@
 // Firebase Import
+
 import { auth, db } from "./firebase.js";
 
 import {
     createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
 
 import {
     doc,
@@ -11,54 +13,110 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
+
 // Register Button
+
 const registerBtn = document.getElementById("registerBtn");
 
-if (registerBtn) {
 
-    registerBtn.addEventListener("click", async () => {
+registerBtn.addEventListener("click", async () => {
 
-        const name = document.getElementById("registerName").value.trim();
-        const email = document.getElementById("registerEmail").value.trim();
-        const phone = document.getElementById("registerPhone").value.trim();
-        const password = document.getElementById("registerPassword").value;
 
-        // Validation
-        if (!name || !email || !phone || !password) {
-            alert("সব তথ্য পূরণ করুন");
-            return;
-        }
+    // Get Input Value
 
-        try {
+    const name = document.getElementById("registerName").value;
 
-            // Create User
-            const userCredential =
-                await createUserWithEmailAndPassword(auth, email, password);
+    const roll = document.getElementById("registerRoll").value;
 
-            const user = userCredential.user;
+    const group = document.getElementById("registerGroup").value;
 
-            // Save Firestore
-            await setDoc(doc(db, "students", user.uid), {
+    const email = document.getElementById("registerEmail").value;
 
-                name: name,
-                email: email,
-                phone: phone
+    const phone = document.getElementById("registerPhone").value;
 
-            });
+    const password = document.getElementById("registerPassword").value;
 
-            alert("Registration Successful ✅");
 
-            // Redirect
-            window.location.href = "login.html";
 
-        }
+    // Validation
 
-        catch (error) {
+    if(
+        !name ||
+        !roll ||
+        !group ||
+        !email ||
+        !phone ||
+        !password
+    ){
 
-            alert(error.message);
+        alert("সব তথ্য পূরণ করুন");
 
-        }
+        return;
 
-    });
+    }
 
-}
+
+
+    try{
+
+
+        // Create Firebase User
+
+        const userCredential = 
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+
+        const user = userCredential.user;
+
+
+
+        // Save Student Data Firestore
+
+        await setDoc(
+            doc(db,"students",user.uid),
+            {
+
+                name:name,
+
+                roll:roll,
+
+                group:group,
+
+                email:email,
+
+                phone:phone,
+
+                uid:user.uid
+
+            }
+        );
+
+
+
+        alert("Registration Successful ✅");
+
+
+
+        // Go Login Page
+
+        window.location.href="login.html";
+
+
+
+    }
+
+    catch(error){
+
+
+        alert(error.message);
+
+
+    }
+
+
+
+});

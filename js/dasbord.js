@@ -1,77 +1,116 @@
-// Firebase Import
 import { auth, db } from "./firebase.js";
 
 import {
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+} 
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
 
 import {
     doc,
     getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
-// Dashboard Load
-onAuthStateChanged(auth, async (user) => {
 
-    // User Login না থাকলে Login Page এ পাঠাবে
-    if (!user) {
-        window.location.href = "login.html";
+// Check User Login
+
+onAuthStateChanged(auth, async (user)=>{
+
+
+    if(!user){
+
+        window.location.href="login.html";
+
         return;
+
     }
 
-    try {
 
-        // Firestore থেকে Student Data আনবে
-        const docRef = doc(db, "students", user.uid);
+    try{
+
+
+        const docRef = doc(
+            db,
+            "students",
+            user.uid
+        );
+
+
         const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
 
-            const student = docSnap.data();
 
-            document.getElementById("studentName").innerText = student.name;
-            document.getElementById("studentEmail").innerText = student.email;
+        if(docSnap.exists()){
 
-        } else {
 
-            document.getElementById("studentName").innerText = "No Data";
-            document.getElementById("studentEmail").innerText = user.email;
+            const data = docSnap.data();
+
+
+            document.getElementById("studentName").innerText = data.name;
+
+            document.getElementById("studentRoll").innerText = data.roll;
+
+            document.getElementById("studentGroup").innerText = data.group;
+
+            document.getElementById("studentEmail").innerText = data.email;
+
+            document.getElementById("studentPhone").innerText = data.phone;
+
 
         }
 
-    } catch (error) {
-
-        console.log(error);
-        alert(error.message);
 
     }
+    catch(error){
+
+        console.log(error);
+
+    }
+
+
 
 });
 
 
-// Logout
+
+
+
+// Logout Button
+
 const logoutBtn = document.getElementById("logoutBtn");
 
-if (logoutBtn) {
 
-    logoutBtn.addEventListener("click", async () => {
+if(logoutBtn){
 
-        try {
+
+    logoutBtn.addEventListener("click", async()=>{
+
+
+        try{
+
 
             await signOut(auth);
 
+
             alert("Logout Successful ✅");
 
-            window.location.href = "login.html";
 
-        } catch (error) {
+            window.location.href="login.html";
 
-            alert(error.message);
 
         }
 
+        catch(error){
+
+            console.log(error);
+
+        }
+
+
     });
+
 
 }

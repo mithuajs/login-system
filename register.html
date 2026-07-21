@@ -1,53 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Register</title>
 
-    <!-- tailwindcss + daisyui -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- font  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&display=swap"
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
-        * {
-            font-family: "Open Sans", sans-serif;
+        *{
+            font-family: "Poppins", sans-serif;
         }
     </style>
+
 </head>
 
-<body>
+<body class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 min-h-screen flex justify-center items-center">
 
-    <!-- // register content -->
-    <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card w-[420px] bg-white shadow-2xl">
 
         <div class="card-body">
 
-            <h2 class="text-3xl font-bold text-center">
+            <h2 class="text-3xl font-bold text-center text-indigo-600">
                 Student Register
             </h2>
 
-            <input id="registerName" type="text" placeholder="Full Name">
+            <input
+                id="registerName"
+                type="text"
+                placeholder="Full Name"
+                class="input input-bordered w-full" />
 
-            <input id="registerEmail" type="email" placeholder="Email">
+            <input
+                id="registerRoll"
+                type="text"
+                placeholder="Roll Number"
+                class="input input-bordered w-full" />
 
-            <input id="registerPhone" type="text" placeholder="Phone">
+            <select
+                id="registerGroup"
+                class="select select-bordered w-full">
 
-            <input id="registerPassword" type="password" placeholder="Password">
+                <option disabled selected>Select Group</option>
 
-            <button id="registerBtn" class="btn btn-primary w-full">
+                <option>Computer</option>
+
+                <option>Civil</option>
+
+                <option>Electrical</option>
+
+                <option>Mechanical</option>
+
+            </select>
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+                class="input input-bordered w-full" />
+
+            <input
+                id="registerPhone"
+                type="text"
+                placeholder="Phone Number"
+                class="input input-bordered w-full" />
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Password"
+                class="input input-bordered w-full" />
+
+            <button
+                id="registerBtn"
+                class="btn btn-primary w-full">
+
+                <i class="fa-solid fa-user-plus"></i>
 
                 Register
 
@@ -57,7 +97,9 @@
 
                 Already have an account?
 
-                <a href="login.html" class="link link-primary">
+                <a
+                    href="login.html"
+                    class="text-blue-600 font-semibold">
 
                     Login
 
@@ -69,12 +111,8 @@
 
     </div>
 
+    <script type="module" src="./js/register.js"></script>
 
 
-
-
-    <script src="./js/register.js"></script>
-    <script src="js/firebase.js"></script>
 </body>
-
 </html>

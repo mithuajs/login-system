@@ -6,68 +6,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Student Dashboard</title>
+
+    <title>(SPI) Student Dashboard</title>
 
 
-    <!-- DaisyUI -->
-
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
 
-    <!-- Tailwind CSS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-
-
-    <!-- Font Awesome -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
-
-
-    <!-- Google Font -->
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-
-    <style>
-        * {
-
-            font-family: "Poppins", sans-serif;
-
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
 
 
 </head>
 
 
-
-<body class="bg-gradient-to-r from-blue-600 to-purple-700 min-h-screen">
-
+<body class="bg-gray-100">
 
 
     <!-- Navbar -->
 
-    <div class="navbar bg-white shadow-lg px-5">
+    <div class="navbar bg-indigo-600 text-white px-6 shadow">
 
+
+        <!-- Left Side -->
 
         <div class="flex-1">
 
-            <h1 class="text-2xl font-bold text-indigo-600">
-
-                Student Dashboard
-
+            <h1 class="text-2xl font-bold">
+               Student Dashboard (SPI)
             </h1>
 
         </div>
 
 
 
-        <button id="logoutBtn" class="btn btn-error">
-            Logout
-        </button>
+
+        <!-- Center Welcome -->
+
+        <div class="absolute left-1/2 transform -translate-x-1/2">
+
+            <span class="text-lg font-semibold text-white">
+                Welcome,
+            </span>
+
+
+            <span id="welcomeUser" class="font-bold text-yellow-200">
+
+                Loading...
+
+            </span>
+
+
+        </div>
+
+
+
+
+
+        <!-- Right Side -->
+
+        <div>
+
+            <button id="logoutBtn" class="btn btn-error text-white">
+
+                Logout
+
+            </button>
+
+        </div>
+
 
     </div>
 
@@ -75,22 +81,105 @@
 
 
 
+    <div class="container mx-auto px-5 mt-10">
 
 
-    <div class="flex justify-center items-center min-h-[80vh]">
 
 
 
-        <div class="card w-[450px] bg-white shadow-2xl">
+        <!-- My Profile -->
+
+
+        <div class="card bg-white shadow-xl">
+
+
+            <div class="card-body">
+
+
+                <h2 class="text-3xl font-bold text-indigo-600">
+
+                    My Profile
+
+                </h2>
+
+
+
+                <div class="divider"></div>
+
+
+
+                <p class="text-lg">
+
+                    <b>Name:</b>
+
+                    <span id="studentName">
+                        Loading...
+                    </span>
+
+                </p>
+
+
+
+
+                <p class="text-lg">
+
+                    <b>Roll:</b>
+
+                    <span id="studentRoll">
+                        Loading...
+                    </span>
+
+
+                </p>
+
+
+
+
+
+                <p class="text-lg">
+
+                    <b>Group:</b>
+
+                    <span id="studentGroup">
+                        Loading...
+                    </span>
+
+
+                </p>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+        <br>
+
+
+
+
+
+
+        <!-- All Student Information -->
+
+
+        <div class="card bg-white shadow-xl">
 
 
             <div class="card-body">
 
 
 
-                <h2 class="text-3xl font-bold text-center text-indigo-600">
+                <h2 class="text-3xl font-bold text-indigo-600">
 
-                    Student Information
+                    All Student Information
 
                 </h2>
 
@@ -102,83 +191,55 @@
 
 
 
-
-                <p>
-
-                    <b>Name:</b>
-
-                    <span id="studentName">
-
-                        Loading...
-
-                    </span>
-
-                </p>
+                <div class="overflow-x-auto">
 
 
+                    <table class="table">
 
 
+                        <thead>
 
-                <p>
 
-                    <b>Roll:</b>
+                            <tr>
 
-                    <span id="studentRoll">
+                                <th>Name</th>
 
-                        Loading...
+                                <th>Roll</th>
 
-                    </span>
+                                <th>Group</th>
 
-                </p>
+                                <th>Email</th>
+
+
+                            </tr>
+
+
+                        </thead>
 
 
 
+                        <tbody id="studentList">
 
 
-                <p>
+                            <tr>
 
-                    <b>Group:</b>
+                                <td colspan="4">
 
-                    <span id="studentGroup">
+                                    Loading...
 
-                        Loading...
-
-                    </span>
-
-                </p>
+                                </td>
 
 
+                            </tr>
 
 
-
-                <p>
-
-                    <b>Email:</b>
-
-                    <span id="studentEmail">
-
-                        Loading...
-
-                    </span>
-
-                </p>
+                        </tbody>
 
 
+                    </table>
 
 
-
-                <p>
-
-                    <b>Phone:</b>
-
-                    <span id="studentPhone">
-
-                        Loading...
-
-                    </span>
-
-                </p>
-
+                </div>
 
 
 
@@ -190,18 +251,18 @@
         </div>
 
 
-    </div>
 
 
 
 
 
+        <br>
 
 
-    <!-- Institute Info -->
 
 
-    <div class="max-w-4xl mx-auto pb-10">
+
+        <!-- Institute Information -->
 
 
         <div class="card bg-white shadow-xl">
@@ -212,22 +273,42 @@
 
                 <h2 class="text-2xl font-bold text-indigo-600">
 
-                    Sylhet Polytechnic Institute
+                  About Institute
 
                 </h2>
 
 
-                <p class="text-gray-600">
+                <p class="mt-4">
 
+                <p>
+                    <strong>Sylhet Polytechnic Institute (SPI)</strong> is one of the oldest and most prestigious
+                    government technical educational institutions in Bangladesh, renowned for delivering quality
+                    mid-level engineering and technical education. Established in <strong>1955</strong>, the institute
+                    operates under the executive control of the Directorate of Technical Education (DTE) and is
+                    academically affiliated with the <strong>Bangladesh Technical Education Board (BTEB)</strong>.
+                    Located at Technical Road, Boroikandi, South Surma, Sylhet—just about one kilometer from the main
+                    Sylhet Railway Station and close to the Kadamtoli Bus Terminal—the institute sits at a highly
+                    accessible and central hub of the region. Spanning a lush, serene <strong>17.83-acre
+                        campus</strong>, SPI provides a well-rounded academic atmosphere featuring a three-story
+                    administrative and academic building, a dedicated computer building, 16 specialized workshops, 12
+                    modern laboratories, a central library, a spacious playground, a central mosque, student hostels,
+                    and a scenic campus pond surrounded by greenery.
+                </p>
 
-                    Sylhet Polytechnic Institute বাংলাদেশের একটি স্বনামধন্য
-                    সরকারি পলিটেকনিক ইনস্টিটিউট। এখানে শিক্ষার্থীদের
-                    Diploma in Engineering শিক্ষা প্রদান করা হয়।
-
-                    প্রতিষ্ঠানটি দক্ষ প্রযুক্তিবিদ তৈরি করার লক্ষ্যে
-                    আধুনিক প্রযুক্তি ও ব্যবহারিক শিক্ষার মাধ্যমে
-                    শিক্ষার্থীদের প্রস্তুত করে।
-
+                <p>
+                    The institute primarily offers four-year <strong>Diploma-in-Engineering</strong> programs across two
+                    academic shifts (First Shift and Second Shift) to accommodate a large number of aspiring technicians
+                    and engineers. Students can pursue specialized studies in seven core technology departments:
+                    <em>Civil Technology, Electrical Technology, Mechanical Technology, Computer Science &amp;
+                        Technology (CST), Electronics Technology, Power Technology, and Electromedical Technology</em>.
+                    In addition to technical courses, a dedicated Non-Tech Department imparts essential training in
+                    basic sciences, mathematics, humanities, and English language skills to ensure holistic development.
+                    Admission to these programs is strictly merit-based, handled through BTEB's centralized online
+                    admission process following the completion of Secondary School Certificate (SSC) or equivalent
+                    examinations. Over the decades, Sylhet Polytechnic Institute has played a crucial role in empowering
+                    youth with practical skills, producing skilled engineering technicians who contribute significantly
+                    to industrial development both in Bangladesh and abroad.
+                </p>
 
                 </p>
 
@@ -238,6 +319,9 @@
         </div>
 
 
+
+
+
     </div>
 
 
@@ -246,15 +330,10 @@
 
 
 
-    <!-- JavaScript -->
-
-
-    <script type="module" src="./js/dashboard.js"></script>
-
+    <script type="module" src="./js/dasbord.js"></script>
 
 
 
 </body>
-
 
 </html>

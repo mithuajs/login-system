@@ -1,72 +1,146 @@
-import { auth, db } from "./firebase.js";
+import {
+    initializeApp
+} from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
 
 import {
+    getAuth,
     onAuthStateChanged,
     signOut
-} 
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+}
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 
 import {
+    getFirestore,
     doc,
-    getDoc
+    getDoc,
+    collection,
+    getDocs
 }
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 
-// Check User Login
-
-onAuthStateChanged(auth, async (user)=>{
 
 
-    if(!user){
+// Firebase Config
 
-        window.location.href="login.html";
-
-        return;
-
-    }
+const firebaseConfig = {
 
 
-    try{
+    apiKey: "AIzaSyAQRxXpTLMp_xZNcs_kxRd98s3itGl3RQk",
 
 
-        const docRef = doc(
+    authDomain: "login-project-d0062.firebaseapp.com",
+
+
+    projectId: "login-project-d0062",
+
+
+    storageBucket: "login-project-d0062.firebasestorage.app",
+
+
+    messagingSenderId: "953305927352",
+
+
+    appId: "1:953305927352:web:64b0e0460edda4acd0ee4d"
+
+
+};
+
+
+
+
+
+// Initialize Firebase
+
+
+const app = initializeApp(firebaseConfig);
+
+
+const auth = getAuth(app);
+
+
+const db = getFirestore(app);
+
+
+
+
+
+
+
+
+// Login User Data
+
+
+onAuthStateChanged(auth, async (user) => {
+
+
+    if (user) {
+
+
+
+        // নিজের profile
+
+
+        const userRef = doc(
             db,
             "students",
             user.uid
         );
 
 
-        const docSnap = await getDoc(docRef);
+
+        const userSnap = await getDoc(userRef);
 
 
 
-        if(docSnap.exists()){
+        if (userSnap.exists()) {
 
 
-            const data = docSnap.data();
+            const data = userSnap.data();
 
 
-            document.getElementById("studentName").innerText = data.name;
 
-            document.getElementById("studentRoll").innerText = data.roll;
+            document.getElementById("studentName")
+                .innerText = data.name;
 
-            document.getElementById("studentGroup").innerText = data.group;
 
-            document.getElementById("studentEmail").innerText = data.email;
 
-            document.getElementById("studentPhone").innerText = data.phone;
+            document.getElementById("studentRoll")
+                .innerText = data.roll;
+
+
+
+            document.getElementById("studentGroup")
+                .innerText = data.group;
+
+            // Navbar welcome name
+
+            document.getElementById("welcomeUser")
+                .innerText = data.name;
+
 
 
         }
 
 
-    }
-    catch(error){
 
-        console.log(error);
+    }
+
+
+
+    else {
+
+
+        window.location.href = "index.html";
+
 
     }
 
@@ -78,39 +152,117 @@ onAuthStateChanged(auth, async (user)=>{
 
 
 
-// Logout Button
-
-const logoutBtn = document.getElementById("logoutBtn");
 
 
-if(logoutBtn){
 
 
-    logoutBtn.addEventListener("click", async()=>{
+// All Student List
 
 
-        try{
+async function loadAllStudents() {
 
 
-            await signOut(auth);
+
+    const studentList =
+        document.getElementById("studentList");
 
 
-            alert("Logout Successful ✅");
+
+    studentList.innerHTML = "";
 
 
-            window.location.href="login.html";
+
+    const querySnapshot =
+        await getDocs(
+            collection(db, "students")
+        );
 
 
-        }
 
-        catch(error){
 
-            console.log(error);
 
-        }
+    querySnapshot.forEach((doc) => {
+
+
+        const data = doc.data();
+
+
+
+        studentList.innerHTML += `
+
+
+<tr>
+
+
+<td>${data.name}</td>
+
+
+<td>${data.roll}</td>
+
+
+<td>${data.group}</td>
+
+
+<td>${data.email}</td>
+
+
+</tr>
+
+
+
+`;
+
 
 
     });
 
 
+
 }
+
+
+
+loadAllStudents();
+
+
+
+
+
+
+
+
+// Logout
+
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+
+logoutBtn.addEventListener("click", () => {
+
+
+    signOut(auth)
+
+        .then(() => {
+
+
+            alert("Logout Successful");
+
+
+            window.location.href = "index.html";
+
+
+        })
+
+
+        .catch((error) => {
+
+
+            console.log(error.message);
+
+
+        });
+
+
+});
